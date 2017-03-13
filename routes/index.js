@@ -33,7 +33,7 @@ function getProject(res, req, userName, userPassword, projectId) {
   db.ref().once('value').then(function (snapshot) {
     if (!snapshot.val()[projectId]) {
       db.ref(projectId + "/users/" + userName).set({
-        color: color,
+        highlightColor: color,
         password: userPassword
       });
       req.session.user = loggedUser;
@@ -44,7 +44,7 @@ function getProject(res, req, userName, userPassword, projectId) {
         if (!snapshot.val()[userName]) {
           // Usuario nuevo
           db.ref(projectId + "/users/" + userName).set({
-            color: color,
+            highlightColor: color,
             password: userPassword
           });
           req.session.user = loggedUser;
@@ -72,7 +72,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-  getProject(res, req, req.body.username, req.body.password, req.body.project);
+  getProject(res, req, req.body.username.toLowerCase(), req.body.password, req.body.project);
 });
 
 module.exports = router;
