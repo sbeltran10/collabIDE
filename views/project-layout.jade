@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title= title
+    //-Firebase
+    script(src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js")
+    
+    //-CodeMirror
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js")
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css')
+    
+    //-Firepad
+    link(rel='stylesheet', href='/stylesheets/firepad.css')
+    script(src="/javascripts//firepad.min.js")
+
+    //-Main script
+    script(type='text/javascript').
+      var loggedUser =!{JSON.stringify(loggedUser)}
+
+    script(src="/javascripts/firepad-main.js")
+
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+
+  body(onload="init()")
+    block content

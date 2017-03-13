@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}, login into your project by providing your credentials and the project's id.
+  form(action="login" name="project-login", method="post")
+    div.input
+        span.label Email:
+        input(type="text", name="email")
+    div.input
+        span.label Password:
+        input(type="password",name="password")
+    div.input
+        span.label Project:
+        input(type="text",name="project")
+    div.actions
+        input(type="submit", value="Login") 
