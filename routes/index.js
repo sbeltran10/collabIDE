@@ -52,18 +52,13 @@ function getProject(res, req, userName, userPassword, projectId) {
         }
         else {
           // Usuario ya existe, hacer comprobacion de contrasena
+          // Paso comprobacion
+          req.session.user = loggedUser;
+          res.redirect('/project/' + projectId);
         }
       });
     }
   });
-
-  /*
-  rootRef('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture: imageUrl
-  });
-  */
 }
 
 /* GET home page. */
@@ -71,6 +66,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'CollabIDE' });
 });
 
+// Login
 router.post('/login', function (req, res, next) {
   getProject(res, req, req.body.username.toLowerCase(), req.body.password, req.body.project);
 });
