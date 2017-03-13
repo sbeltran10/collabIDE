@@ -3523,7 +3523,7 @@ firepad.RichTextCodeMirror = (function () {
           console.log("over here");
           if (typeof collSession != "undefined") {
             console.log("aww yis");
-            attributes['userid'] = collSession.userId
+            attributes['username'] = collSession.username
           }
         } else if (origin in this.outstandingChanges_) {
           attributes = this.outstandingChanges_[origin].attributes;

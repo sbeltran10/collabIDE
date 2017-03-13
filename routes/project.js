@@ -20,11 +20,11 @@ function getProject(userEmail, userPassword, projectId) {
 
 /* GET users listing. */
 router.get('/:id', function (req, res, next) {
+  var sessionUser = req.session.user;
   res.render("project", {
     loggedUser: {
-      id: "us1",
-      email: req.body.email,
-      name: req.body.name
+      color: sessionUser.color,
+      username: sessionUser.name
     }
   });
 });
