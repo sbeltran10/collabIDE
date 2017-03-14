@@ -1,4 +1,6 @@
 var collSession;
+var proID = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+var styleSheet = document.styleSheets[document.styleSheets.length - 1];
 
 function init() {
 
@@ -9,7 +11,6 @@ function init() {
     };
 
     // Set user text highlighthing
-    var styleSheet = document.styleSheets[document.styleSheets.length - 1];
     var rules = loggedUser.rules;
     rules.forEach(function (element) {
         styleSheet.insertRule(element, 0);
@@ -37,12 +38,21 @@ function init() {
         userColor: collSession.usercolor,
         userId: collSession.username
     });
+
+    var usuariosRef = firebase.database().ref(proID);
+    usuariosRef.on('child_added', function (snapshot) {
+        updateRulesContext(snapshot);
+    });
 }
 
 // Helper to get databse reference.
 function getRef() {
     var ref = firebase.database().ref();
-    var proID = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
     ref = ref.child(proID);
     return ref;
+}
+
+// Function to update css rules and context on new user registration on the project
+function updateRulesContext(snapshot) {
+    console.log(snapshot.val());
 }
