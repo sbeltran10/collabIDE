@@ -13,12 +13,19 @@ html
     //-Firepad
     link(rel='stylesheet', href='/stylesheets/firepad.css')
     script(src="/javascripts//firepad.js")
+    
+    //-Context traits
+    script(src="/javascripts/underscore.js")
+    script(src="/javascripts/traits.js")
+    script(src="/javascripts/context-traits.min.js")
+    
 
     //-Main script
     script(type='text/javascript').
       var loggedUser =!{JSON.stringify(loggedUser)}
 
     script(src="/javascripts/firepad-main.js")
+    script(src="/javascripts/listener.js")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
