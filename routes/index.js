@@ -68,7 +68,7 @@ router.get('/', function (req, res, next) {
 
 // Login
 router.post('/login', function (req, res, next) {
-  getProject(res, req, req.body.username.toLowerCase(), req.body.password, req.body.project);
+  getProject(res, req, req.body.username.toLowerCase(), req.body.password, req.body.project.toLowerCase());
 });
 
 module.exports = router;

@@ -19,7 +19,8 @@ function getProject(sessionUser, res, projectId) {
       loggedUser: {
         color: sessionUser.color,
         username: sessionUser.name,
-        rules:rulesArray
+        rules:rulesArray,
+        online:false
       }
     });
   });

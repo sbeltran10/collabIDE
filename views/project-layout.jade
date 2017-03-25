@@ -5,27 +5,40 @@ html
     //-Firebase
     script(src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js")
     
+    //- Jquery
+    script(src="/javascripts/vendor/jquery-3.2.0.min.js")
+
+    //-Bootstrap
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    script(src="/javascripts/vendor/bootstrap.min.js")
+
     //-CodeMirror
     script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js")
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css')
+    link(rel='stylesheet', href='/stylesheets/dracula.css')
     
     //-Firepad
     link(rel='stylesheet', href='/stylesheets/firepad.css')
-    script(src="/javascripts//firepad.js")
+    script(src="/javascripts/vendor/firepad.js")
     
     //-Context traits
-    script(src="/javascripts/underscore.js")
-    script(src="/javascripts/traits.js")
-    script(src="/javascripts/context-traits.min.js")
+    script(src="/javascripts/vendor/underscore.js")
+    script(src="/javascripts/vendor/traits.js")
+    script(src="/javascripts/vendor/context-traits.js")
     
 
     //-Main script
     script(type='text/javascript').
       var loggedUser =!{JSON.stringify(loggedUser)}
 
+    script(src="/javascripts/project-contexts.js")
+    script(src="/javascripts/menu-developers.js")
+    script(src="/javascripts/menu-edition.js")
+    script(src="/javascripts/menu-files.js")
     script(src="/javascripts/firepad-main.js")
-    script(src="/javascripts/listener.js")
+    
 
     link(rel='stylesheet', href='/stylesheets/style.css')
 
