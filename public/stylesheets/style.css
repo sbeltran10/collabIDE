@@ -2,7 +2,7 @@ html {
    height: 100%; 
 }
 body {
-   margin: 0; height: 100%; 
+   margin: 0; height: 100%; overflow: auto;
 }
     /* Height / width / positioning can be customized for your use case.
        For demo purposes, we make the user list 175px and firepad fill the rest of the page. */
@@ -14,10 +14,84 @@ body {
     */
 
 #firepad {
-  position: absolute; 
-  left: 175px; 
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 80%;
+  padding: 1em 1em;
+  border: 0.2em solid rgba(192,192,192,0.6);
+}
+
+#menu-container {
+  position: absolute;
+  right: 0; 
   top: 0; 
   bottom: 0; 
-  right: 0; 
   height: auto;
+  width: 20%;
+  padding: 0 1em 0 1em;
+  border: 0.2em solid rgba(192,192,192,0.6);
 }
+
+#menu-header {
+  border: 0.2em solid rgba(192,192,192,0.6);
+  height: 5%;
+}
+
+#menu-edition {
+  border: 0.2em solid rgba(192,192,192,0.6);
+  height: 15%;
+}
+
+#menu-developers {
+  border: 0.2em solid rgba(192,192,192,0.6);
+  height: 60%;
+}
+
+.menu-developers-item {
+  padding: 0.4em 0;
+  border-bottom: 0.2em solid rgba(192,192,192,0.6);
+}
+
+
+#menu-file {
+  border: 0.2em solid rgba(192,192,192,0.6);
+  height: 20%;
+}
+
+.menu-heading {
+  padding: 0.2em;
+  font-size: 1.5em;
+}
+
+.offline-icon{
+  width: 0.7em;
+	height: 0.7em;
+	background: gray;
+	-moz-border-radius: 2em;
+	-webkit-border-radius: 2em;
+	border-radius: 2em;
+}
+
+.online-icon{
+  width: 0.7em;
+	height: 0.7em;
+  text-align: center;
+	background: green;
+	-moz-border-radius: 2em;
+	-webkit-border-radius: 2em;
+	border-radius: 2em;
+}
+
+input[type="checkbox"]{
+  width: 1.5em; 
+  height: 1.5em; 
+}
+
+
+
+
+
+

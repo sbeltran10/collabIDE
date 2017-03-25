@@ -1,21 +1,7 @@
-var collSession;
 var proID = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 var styleSheet = document.styleSheets[document.styleSheets.length - 1];
 
 function init() {
-
-    // Assing session data
-    collSession = {
-        username: loggedUser.username,
-        usercolor: loggedUser.color
-    };
-
-    // Set user text highlighthing
-    var rules = loggedUser.rules;
-    rules.forEach(function (element) {
-        styleSheet.insertRule(element, 0);
-    });
-
     //// Initialize Firebase.
     var config = {
         apiKey: "AIzaSyBNqso86bEnzBIzRx4RNQ-3Ww2qNqL_xJA",
@@ -35,14 +21,16 @@ function init() {
 
     //// Create Firepad.
     var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
-        userColor: collSession.usercolor,
-        userId: collSession.username
+        userColor: loggedUser.color,
+        userId: loggedUser.username
     });
 
-    var usuariosRef = firebase.database().ref(proID);
+    // Set user text highlighthing
+    var usuariosRef = firebase.database().ref(proID + "/users");
     usuariosRef.on('child_added', function (snapshot) {
         updateRulesContext(snapshot);
     });
+
 }
 
 // Helper to get databse reference.
@@ -54,5 +42,7 @@ function getRef() {
 
 // Function to update css rules and context on new user registration on the project
 function updateRulesContext(snapshot) {
-    console.log(snapshot.val());
+    styleSheet.insertRule(".firepad-username-" + snapshot.getKey() + " { background-color:" + snapshot.val().highlightColor + "}", 0);
+    loadContext(snapshot.getKey(), snapshot.val());
+    loadDeveloper(snapshot.getKey(), snapshot.val());
 }

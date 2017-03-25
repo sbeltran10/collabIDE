@@ -1,0 +1,49 @@
+
+function loadDeveloper(developerName, developerData) {
+
+    var newItem = $('<div class="row menu-developers-item"></div>')
+
+    var colColor = $('<div class="col-md-3"></div>');
+    var colorIcon = $('<div class="developer-icon-' + developerName + '"></div>');
+    $('.developer-icon-' + developerName).css(
+        {
+            'background': developerData.highlightColor,
+            'width': '2em',
+            'height': '2em',
+        });
+    styleSheet.insertRule(".developer-icon-" + developerName + "{ width: 3em; height: 3em; background:" + developerData.highlightColor + ";}", 0);
+    colColor.append(colorIcon);
+
+    var colNameStatus = $('<div class="col-md-5"></div>');
+    var nameRow = $('<div class="row"></div>');
+    var nameCol = $('<div class="col-md-12">' + developerName + '</div>');
+    nameRow.append(nameCol);
+    colNameStatus.append(nameRow);
+    var statusRow = $('<div class="row"></div>');
+    var textCol = $('<div class="col-md-5">' + (developerData.online ? 'Online' : 'Offline') + '</div>');
+    var iconCol = $('<div class="col-md-4"><div class="' + (developerData.online ? 'online-icon' : 'offline-icon') + '"></div></div>');
+    statusRow.append(textCol);
+    statusRow.append(iconCol);
+    colNameStatus.append(statusRow);
+
+    var colCheckbox = $('<div id="check-' + developerName + '" class="col-md-3"></div>');
+    var checkbox = $('<input type="checkbox" name="check-' + developerName + '" value="check-' + developerName + '" ' + '>');
+    colCheckbox.append(checkbox);
+
+    newItem.append(colColor);
+    newItem.append(colNameStatus);
+    newItem.append(colCheckbox);
+
+    $('#developers-list').append(newItem);
+
+    $('#check-' + developerName + ' input[type=checkbox]').change(
+        function toggleHhighlighting() {
+            if ($(this).is(':checked'))
+                console.log(devContexts[developerName].activate());
+            else
+                console.log(devContexts[developerName].deactivate());
+            highlighter['setHighlighthingFor' + developerName]();
+            console.log(highlighter);
+        });
+}
+
