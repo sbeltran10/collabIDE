@@ -31,6 +31,7 @@ function init() {
         updateRulesContext(snapshot);
     });
 
+    //experimental();
 }
 
 // Helper to get databse reference.
@@ -45,4 +46,13 @@ function updateRulesContext(snapshot) {
     styleSheet.insertRule(".firepad-username-" + snapshot.getKey() + " { background-color:" + snapshot.val().highlightColor + "}", 0);
     loadContext(snapshot.getKey(), snapshot.val());
     loadDeveloper(snapshot.getKey(), snapshot.val());
+}
+
+function experimental() {
+    var nContexts = 0;
+    while (nContexts<500000) {
+        var DevContext = new Context({ name: "developer" });
+        console.log(DevContext.activate());
+        
+    }
 }
