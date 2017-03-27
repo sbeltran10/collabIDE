@@ -27,7 +27,7 @@ function loadDeveloper(developerName, developerData) {
     colNameStatus.append(statusRow);
 
     var colCheckbox = $('<div id="check-' + developerName + '" class="col-md-3"></div>');
-    var checkbox = $('<input type="checkbox" name="check-' + developerName + '" value="check-' + developerName + '" ' + '>');
+    var checkbox = $('<input type="checkbox" name="check-' + developerName + '" value="check-' + developerName + '" ' + 'checked>');
     colCheckbox.append(checkbox);
 
     newItem.append(colColor);
@@ -39,10 +39,11 @@ function loadDeveloper(developerName, developerData) {
     $('#check-' + developerName + ' input[type=checkbox]').change(
         function toggleHhighlighting() {
             if ($(this).is(':checked'))
-                console.log(devContexts[developerName].activate());
+                devContexts[developerName].activate();
             else
-                console.log(devContexts[developerName].deactivate());
-            highlighter['setHighlighthingFor' + developerName]();
+                devContexts[developerName].deactivate();
+            highlighters[developerName]['setHighlighthingFor' + developerName]();
+            //console.log(highlighter);
             console.log(highlighter);
         });
 }
