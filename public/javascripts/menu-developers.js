@@ -42,9 +42,9 @@ function loadDeveloper(developerName, developerData) {
                 devContexts[developerName].activate();
             else
                 devContexts[developerName].deactivate();
-            highlighters[developerName]['setHighlighthingFor' + developerName]();
+
+            highlighter.defineVisibility();
             //console.log(highlighter);
-            console.log(highlighter);
         });
 }
 
