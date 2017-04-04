@@ -3520,8 +3520,8 @@ firepad.RichTextCodeMirror = (function () {
         var attributes;
         if (change.origin === '+input' || change.origin === 'paste') {
           attributes = this.currentAttributes_ || {};
-          if (typeof collSession != "undefined") {
-            attributes['username'] = collSession.username
+          if (typeof loggedUser != "undefined") {
+            attributes['username'] = loggedUser.username
           }
         } else if (origin in this.outstandingChanges_) {
           attributes = this.outstandingChanges_[origin].attributes;

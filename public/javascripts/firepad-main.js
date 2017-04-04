@@ -34,6 +34,7 @@ function init() {
 
     rules = styleSheet.cssRules || sheet.rules;
     //experimental();
+    console.log(loggedUser);
 }
 
 // Helper to get databse reference.
@@ -45,6 +46,7 @@ function getRef() {
 
 // Function to update css rules and context on new user registration on the project
 function updateRulesContext(snapshot) {
+    console.log(snapshot.getKey());
     styleSheet.insertRule(".firepad-username-" + snapshot.getKey() + " { background-color:" + snapshot.val().highlightColor + "}", 0);
     loadContext(snapshot.getKey(), snapshot.val());
     loadDeveloper(snapshot.getKey(), snapshot.val());
