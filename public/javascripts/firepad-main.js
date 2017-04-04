@@ -1,5 +1,6 @@
 var proID = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 var styleSheet = document.styleSheets[document.styleSheets.length - 1];
+var rules;
 
 function init() {
     //// Initialize Firebase.
@@ -31,6 +32,7 @@ function init() {
         updateRulesContext(snapshot);
     });
 
+    rules = styleSheet.cssRules || sheet.rules;
     //experimental();
 }
 
