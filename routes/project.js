@@ -20,7 +20,7 @@ function getProject(sessionUser, res, projectId) {
         color: sessionUser.color,
         username: sessionUser.name,
         rules:rulesArray,
-        online:false
+        online:true
       }
     });
   });

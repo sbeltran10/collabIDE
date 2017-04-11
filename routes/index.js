@@ -34,7 +34,9 @@ function getProject(res, req, userName, userPassword, projectId) {
     if (!snapshot.val()[projectId]) {
       db.ref(projectId + "/users/" + userName).set({
         highlightColor: color,
-        password: userPassword
+        password: userPassword,
+        active: true,
+        online: true
       });
       req.session.user = loggedUser;
       res.redirect('/project/' + projectId);
@@ -45,7 +47,9 @@ function getProject(res, req, userName, userPassword, projectId) {
           // Usuario nuevo
           db.ref(projectId + "/users/" + userName).set({
             highlightColor: color,
-            password: userPassword
+            password: userPassword,
+            active: true,
+            online: true
           });
           req.session.user = loggedUser;
           res.redirect('/project/' + projectId);

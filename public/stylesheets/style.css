@@ -28,7 +28,6 @@ body {
   position: absolute;
   right: 0; 
   top: 0; 
-  bottom: 0; 
   height: auto;
   width: 20%;
   padding: 0 1em 0 1em;
@@ -90,8 +89,21 @@ input[type="checkbox"]{
   height: 1.5em; 
 }
 
+.option-check{
+  margin: 0.5em;
+}
 
+.generation-item{
+  margin: 0.5em;
+}
 
+.generation-button{
+  margin: 0.5em 0; 
+  width:90%
+}
 
+.generation-file-name{
+  width:90%
+}
 
 

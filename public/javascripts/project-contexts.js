@@ -8,6 +8,7 @@ DefaultTrait = Trait({
         developers.forEach(function (element) {
             if (!devContexts[element.name].isActive()) {
                 element.styleRule.style.display = "none";
+                //console.log(element.name + " invisible!")
             }
         }, this)
     }
@@ -32,11 +33,11 @@ function adaptSpecificContext(developerName, developerData) {
     HighlightTrait = Trait({
         defineVisibility: function () {
             developerRule.style.display = "inline";
-            console.log("Visible " + developerName);
+            //console.log(developerName + " visible!")
             this.proceed();
         },
     });
     DevContext.adapt(highlighter, HighlightTrait);
-    DevContext.activate();
+    //DevContext.activate();
 }
 

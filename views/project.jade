@@ -6,10 +6,18 @@ block content
     .container
     #menu-header.row 
       .col-md-12
-        .menu-heading Menu
+        .menu-heading
+        h2 Menu
     #menu-edition.row
       .col-md-12
         .menu-heading Edition mode
+        #edition-options
+          .row.option-check
+            input(type="radio", name="selected_edition_mode", value="1" checked="true")
+            span  Contributions
+          .row.option-check
+            input(type="radio", name="selected_edition_mode", value="0")
+            span  Product generation
     #menu-developers.row
       .col-md-12
         .menu-heading Developers
@@ -17,6 +25,10 @@ block content
     #menu-file.row
       .col-md-12
         .menu-heading File generation
-      
+        #generation-options
+        .row.generation-item
+          input#generated-file-name.generation-file-name(type="text", name="filename" placeholder="File name")
+        .row.generation-item
+          a#generate-button.btn.btn-primary.generation-button(name="filebutton") Generate File
         
 

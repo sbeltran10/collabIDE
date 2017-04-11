@@ -1,6 +1,8 @@
 var proID = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 var styleSheet = document.styleSheets[document.styleSheets.length - 1];
 var rules;
+var firepad;
+var codeMirror;
 
 function init() {
     //// Initialize Firebase.
@@ -15,26 +17,38 @@ function init() {
     var firepadRef = getRef();
 
     //// Create CodeMirror (with lineWrapping on).
-    var codeMirror = CodeMirror(document.getElementById('firepad'), {
+    codeMirror = CodeMirror(document.getElementById('firepad'), {
         lineNumbers: true,
         mode: 'javascript'
     });
 
     //// Create Firepad.
-    var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
+    firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
         userColor: loggedUser.color,
         userId: loggedUser.username
     });
 
-    // Set user text highlighthing
-    var usuariosRef = firebase.database().ref(proID + "/users");
-    usuariosRef.on('child_added', function (snapshot) {
+    // Listeners for new user connected, activated or disconnected
+
+    // Set user text highlighthing for new user 
+    var userRef = firebase.database().ref(proID + "/users");
+    userRef.on('child_added', function (snapshot) {
         updateRulesContext(snapshot);
+    });
+
+    // Set user offline status
+    var userconnectedRef = firebase.database().ref(proID + "/users/" + loggedUser.username);
+    userconnectedRef.onDisconnect().update({
+        online: false,
+    });
+
+    // Set status online
+    userconnectedRef.update({
+        online: true,
     });
 
     rules = styleSheet.cssRules || sheet.rules;
     //experimental();
-    console.log(loggedUser);
 }
 
 // Helper to get databse reference.
@@ -46,17 +60,50 @@ function getRef() {
 
 // Function to update css rules and context on new user registration on the project
 function updateRulesContext(snapshot) {
-    console.log(snapshot.getKey());
-    styleSheet.insertRule(".firepad-username-" + snapshot.getKey() + " { background-color:" + snapshot.val().highlightColor + "}", 0);
-    loadContext(snapshot.getKey(), snapshot.val());
-    loadDeveloper(snapshot.getKey(), snapshot.val());
+    var developerUserName = snapshot.getKey();
+    styleSheet.insertRule(".firepad-username-" + developerUserName + " { background-color:" + snapshot.val().highlightColor + "}", 0);
+    loadContext(developerUserName, snapshot.val());
+    loadDeveloper(developerUserName, snapshot.val());
+
+    // Adds listeners for users status changes
+    // Set user online icon status
+    var userRefOnline = firebase.database().ref(proID + "/users/" + developerUserName + "/online");
+    userRefOnline.on('value', function (snapshotStatus) {
+        updateOnlineOfflineStatus(developerUserName, snapshotStatus);
+    });
+
+    var userRefActive = firebase.database().ref(proID + "/users/" + developerUserName + "/active");
+    userRefActive.on('value', function (snapshotStatus) {
+        updateActiveInactiveStatus(developerUserName, snapshotStatus)
+    });
+
 }
+
+// Update the online status and the icons
+function updateOnlineOfflineStatus(developerName, snapshotStatus) {
+    $('#status-text-' + developerName).replaceWith('<div id="status-text-' + developerName + '" class="col-md-5">' + (snapshotStatus.val() ? 'Online' : 'Offline') + '</div>');
+    $('#status-icon-' + developerName).replaceWith('<div id="status-icon-' + developerName + '" class="col-md-4"><div class="' + (snapshotStatus.val() ? 'online-icon' : 'offline-icon') + '"></div></div>');
+}
+
+// Update the checked status
+function updateActiveInactiveStatus(developerName, snapshotStatus) {
+    var checked = snapshotStatus.val();
+    $('#check-' + developerName + ' input[type=checkbox]').prop('checked', checked).change();
+    if (checked)
+        devContexts[developerName].activate();
+    else
+        devContexts[developerName].deactivate();
+
+    highlighter.defineVisibility();
+    console.log(devContexts[developerName]);
+}
+
 
 function experimental() {
     var nContexts = 0;
-    while (nContexts<500000) {
+    while (nContexts < 500000) {
         var DevContext = new Context({ name: "developer" });
         console.log(DevContext.activate());
-        
+
     }
 }

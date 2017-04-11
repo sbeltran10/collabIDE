@@ -20,8 +20,8 @@ function loadDeveloper(developerName, developerData) {
     nameRow.append(nameCol);
     colNameStatus.append(nameRow);
     var statusRow = $('<div class="row"></div>');
-    var textCol = $('<div class="col-md-5">' + (developerData.online ? 'Online' : 'Offline') + '</div>');
-    var iconCol = $('<div class="col-md-4"><div class="' + (developerData.online ? 'online-icon' : 'offline-icon') + '"></div></div>');
+    var textCol = $('<div id="status-text-' + developerName + '" class="col-md-5">' + (developerData.online ? 'Online' : 'Offline') + '</div>');
+    var iconCol = $('<div id="status-icon-' + developerName + '" class="col-md-4"><div class="' + (developerData.online ? 'online-icon' : 'offline-icon') + '"></div></div>');
     statusRow.append(textCol);
     statusRow.append(iconCol);
     colNameStatus.append(statusRow);
@@ -38,13 +38,10 @@ function loadDeveloper(developerName, developerData) {
 
     $('#check-' + developerName + ' input[type=checkbox]').change(
         function toggleHhighlighting() {
-            if ($(this).is(':checked'))
-                devContexts[developerName].activate();
-            else
-                devContexts[developerName].deactivate();
-
-            highlighter.defineVisibility();
-            //console.log(highlighter);
+            var ref = firebase.database().ref(proID + "/users/" + developerName);
+            ref.update({
+                active: $(this).is(':checked')
+            });
         });
 }
 
