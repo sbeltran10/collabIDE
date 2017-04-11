@@ -49,6 +49,12 @@ function init() {
 
     rules = styleSheet.cssRules || sheet.rules;
     //experimental();
+
+    firepad.on('ready', function () {
+        $('#generate-button').removeClass("disabled");
+        $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
+    });
+
 }
 
 // Helper to get databse reference.
@@ -61,7 +67,8 @@ function getRef() {
 // Function to update css rules and context on new user registration on the project
 function updateRulesContext(snapshot) {
     var developerUserName = snapshot.getKey();
-    styleSheet.insertRule(".firepad-username-" + developerUserName + " { background-color:" + snapshot.val().highlightColor + "}", 0);
+    var rgbaColor = hexToRgb(snapshot.val().highlightColor);
+    styleSheet.insertRule(".firepad-username-" + developerUserName + " { background-color: rgba(" + rgbaColor.r + ',' + rgbaColor.g + ',' + rgbaColor.b + ',' + rgbaColor.a + ")}", 0);
     loadContext(developerUserName, snapshot.val());
     loadDeveloper(developerUserName, snapshot.val());
 
@@ -79,25 +86,6 @@ function updateRulesContext(snapshot) {
 
 }
 
-// Update the online status and the icons
-function updateOnlineOfflineStatus(developerName, snapshotStatus) {
-    $('#status-text-' + developerName).replaceWith('<div id="status-text-' + developerName + '" class="col-md-5">' + (snapshotStatus.val() ? 'Online' : 'Offline') + '</div>');
-    $('#status-icon-' + developerName).replaceWith('<div id="status-icon-' + developerName + '" class="col-md-4"><div class="' + (snapshotStatus.val() ? 'online-icon' : 'offline-icon') + '"></div></div>');
-}
-
-// Update the checked status
-function updateActiveInactiveStatus(developerName, snapshotStatus) {
-    var checked = snapshotStatus.val();
-    $('#check-' + developerName + ' input[type=checkbox]').prop('checked', checked).change();
-    if (checked)
-        devContexts[developerName].activate();
-    else
-        devContexts[developerName].deactivate();
-
-    highlighter.defineVisibility();
-    console.log(devContexts[developerName]);
-}
-
 
 function experimental() {
     var nContexts = 0;
@@ -106,4 +94,14 @@ function experimental() {
         console.log(DevContext.activate());
 
     }
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+        a: 0.4
+    } : null;
 }

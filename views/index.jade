@@ -2,16 +2,24 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}, login into your project by providing your credentials and the project's id.
+  p Welcome to #{title}, login into your project by providing your credentials and the name of the project.
   form(action="login" name="project-login", method="post")
-    div.input
-        span.label Username:
-        input(type="text", name="username")
-    div.input
-        span.label Password:
-        input(type="password",name="password")
-    div.input
-        span.label Project:
-        input(type="text",name="project")
-    div.actions
-        input(type="submit", value="Login") 
+    div.container
+        div.input.row
+            .col-md-2
+                span Username:
+            .col-md-2
+                input(type="text", name="username")
+        div.input.row
+            .col-md-2
+                span Password:
+            .col-md-2
+                input(type="password",name="password")
+        div.input.row
+            .col-md-2
+                span Project:
+            .col-md-2
+                input(type="text",name="project")
+        div.actions.row
+            .col-md-6
+                input(type="submit", value="Login") 

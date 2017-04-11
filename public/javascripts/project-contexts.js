@@ -38,6 +38,5 @@ function adaptSpecificContext(developerName, developerData) {
         },
     });
     DevContext.adapt(highlighter, HighlightTrait);
-    //DevContext.activate();
 }
 

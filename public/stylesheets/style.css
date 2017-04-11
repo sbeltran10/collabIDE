@@ -106,4 +106,10 @@ input[type="checkbox"]{
   width:90%
 }
 
+div.input{
+  margin: 1em
+}
 
+div.actions{
+  margin: 1em;
+}

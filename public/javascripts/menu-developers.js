@@ -45,3 +45,21 @@ function loadDeveloper(developerName, developerData) {
         });
 }
 
+// Update the checked status
+function updateActiveInactiveStatus(developerName, snapshotStatus) {
+    var checked = snapshotStatus.val();
+    $('#check-' + developerName + ' input[type=checkbox]').prop('checked', checked).change();
+    if (checked && devContexts[developerName].activationCount === 0)
+        devContexts[developerName].activate();
+
+    else if (devContexts[developerName].activationCount > 0)
+        devContexts[developerName].deactivate();
+
+    highlighter.defineVisibility();
+}
+
+// Update the online status and the icons
+function updateOnlineOfflineStatus(developerName, snapshotStatus) {
+    $('#status-text-' + developerName).replaceWith('<div id="status-text-' + developerName + '" class="col-md-5">' + (snapshotStatus.val() ? 'Online' : 'Offline') + '</div>');
+    $('#status-icon-' + developerName).replaceWith('<div id="status-icon-' + developerName + '" class="col-md-4"><div class="' + (snapshotStatus.val() ? 'online-icon' : 'offline-icon') + '"></div></div>');
+}
