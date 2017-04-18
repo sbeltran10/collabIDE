@@ -32,6 +32,9 @@ function getProject(res, req, userName, userPassword, projectId) {
   }
   db.ref().once('value').then(function (snapshot) {
     if (!snapshot.val()[projectId]) {
+      db.ref(projectId).set({
+        edition: 'production'
+      });
       db.ref(projectId + "/users/" + userName).set({
         highlightColor: color,
         password: userPassword,

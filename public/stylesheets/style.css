@@ -113,3 +113,7 @@ div.input{
 div.actions{
   margin: 1em;
 }
+
+a.powered-by-firepad {
+  display: none;
+}

@@ -1,5 +1,9 @@
+// The object to be adapted with each developer context
 var highlighter = {};
+
+// Object containing all the contexts of the developers
 var devContexts = {};
+
 var developers = [];
 
 // Adapt the default context
@@ -15,7 +19,12 @@ DefaultTrait = Trait({
 });
 contexts.Default.adapt(highlighter, DefaultTrait);
 
-// Defining traits for the contexts
+// Defining the edition mode contexts
+var ContributionsContext = new Context({name:'contributions'});
+
+var ProductionContext = new Context({name:'production'});
+
+// Defining traits for the developers contexts
 function loadContext(developerName, developerData) {
     adaptSpecificContext(developerName, developerData);
 }

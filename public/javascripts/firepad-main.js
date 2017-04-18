@@ -47,13 +47,23 @@ function init() {
         online: true,
     });
 
-    rules = styleSheet.cssRules || sheet.rules;
-    //experimental();
+    // Set the functions on each radio
+    prepareRadio();
 
+    // Listener for edition mode
+    var userRefEdition = firebase.database().ref(proID + "/edition");
+    userRefEdition.on('value', function (snapshotEdition) {
+        updateEditionMode(snapshotEdition);
+    });
+
+    rules = styleSheet.cssRules || sheet.rules;
+
+    //experimental();
     firepad.on('ready', function () {
         $('#generate-button').removeClass("disabled");
         $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
     });
+    
 
 }
 
@@ -85,7 +95,6 @@ function updateRulesContext(snapshot) {
     });
 
 }
-
 
 function experimental() {
     var nContexts = 0;
