@@ -106,7 +106,7 @@ function getProject(res, req, userName, userPassword, projectId) {
               res.redirect('/project/' + projectId);
             }
             else{
-              res.render('index', { title: 'CollabIDE', validationFailed:true });
+              res.render('index', { data: {title:'CollabIDE',validationFailed:true }} );
             }
           });
         }
@@ -117,7 +117,7 @@ function getProject(res, req, userName, userPassword, projectId) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { data: {name:'CollabIDE' }});
+  res.render('index', { data: {title:'CollabIDE' }});
 });
 
 // Login

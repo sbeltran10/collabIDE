@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= data.title
+    title= 'CollabIDE'
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
@@ -9,7 +9,7 @@ html
     script(src="/javascripts/vendor/bootstrap.min.js")
     
     script(type='text/javascript').
-      var loggedUser =!{JSON.stringify(title)}
+      var dataObtained =!{JSON.stringify(data)}
 
     script(src="/javascripts/indexMain.js")
     

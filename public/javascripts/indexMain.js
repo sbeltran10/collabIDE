@@ -1,5 +1,5 @@
 window.onload = function () {
-    if(validation){
+    if(dataObtained.validationFailed){
         window.alert("Incorrect password!");
     }
 }; 
