@@ -62,8 +62,11 @@ function init() {
     firepad.on('ready', function () {
         $('#generate-button').removeClass("disabled");
         $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
+        var all_nodes = $('[class^="firepad-username-"]');
+        console.log($('#generate-button'));
+        console.log(all_nodes);
     });
-    
+
 
 }
 
@@ -111,6 +114,6 @@ function hexToRgb(hex) {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
-        a: 0.3
+        a: 0.4
     } : null;
 }

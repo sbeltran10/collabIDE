@@ -1,6 +1,10 @@
 // The object to be adapted with each developer context
 var highlighter = {};
 
+var editionController = {
+    defineSpansMode: function () { }
+}
+
 // Object containing all the contexts of the developers
 var devContexts = {};
 
@@ -19,10 +23,25 @@ DefaultTrait = Trait({
 });
 contexts.Default.adapt(highlighter, DefaultTrait);
 
-// Defining the edition mode contexts
-var ContributionsContext = new Context({name:'contributions'});
 
-var ProductionContext = new Context({name:'production'});
+
+// Defining the edition mode contexts
+var ContributionsContext = new Context({ name: 'contributions' });
+ContributionTrait = Trait({
+    defineSpansMode: function () {
+        var all_nodes = $('[class^="firepad-username-"]');
+        console.log(all_nodes);
+    }
+});
+ContributionsContext.adapt(editionController, ContributionTrait);
+
+var ProductionContext = new Context({ name: 'production' });
+ProductionTrait = Trait({
+    defineSpansMode: function () {
+
+    }
+});
+ProductionContext.adapt(editionController, ProductionTrait);
 
 // Defining traits for the developers contexts
 function loadContext(developerName, developerData) {
