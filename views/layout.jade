@@ -1,12 +1,17 @@
 doctype html
 html
   head
-    title= title
+    title= data.title
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="/javascripts/vendor/jquery-3.2.0.min.js")
     script(src="/javascripts/vendor/bootstrap.min.js")
+    
+    script(type='text/javascript').
+      var loggedUser =!{JSON.stringify(title)}
+
+    script(src="/javascripts/indexMain.js")
     
 
   body
