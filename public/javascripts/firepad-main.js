@@ -62,9 +62,6 @@ function init() {
     firepad.on('ready', function () {
         $('#generate-button').removeClass("disabled");
         $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
-        var all_nodes = $('[class^="firepad-username-"]');
-        console.log($('#generate-button'));
-        console.log(all_nodes);
     });
 
 
@@ -81,7 +78,9 @@ function getRef() {
 function updateRulesContext(snapshot) {
     var developerUserName = snapshot.getKey();
     var rgbaColor = hexToRgb(snapshot.val().highlightColor);
-    styleSheet.insertRule(".firepad-username-" + developerUserName + " { background-color: rgba(" + rgbaColor.r + ',' + rgbaColor.g + ',' + rgbaColor.b + ',' + rgbaColor.a + ")}", 0);
+    styleSheet.insertRule(".firepad-username-" + developerUserName + " {}", 0);
+    var ruleInserted = rules[0];
+    ruleInserted.style.backgroundColor = "rgba(" + rgbaColor.r + ',' + rgbaColor.g + ',' + rgbaColor.b + ',' + rgbaColor.a + ")";
     loadContext(developerUserName, snapshot.val());
     loadDeveloper(developerUserName, snapshot.val());
 
@@ -114,6 +113,7 @@ function hexToRgb(hex) {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
-        a: 0.4
+        a: 0.2
     } : null;
 }
+

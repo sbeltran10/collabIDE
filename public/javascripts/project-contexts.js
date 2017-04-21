@@ -29,16 +29,22 @@ contexts.Default.adapt(highlighter, DefaultTrait);
 var ContributionsContext = new Context({ name: 'contributions' });
 ContributionTrait = Trait({
     defineSpansMode: function () {
-        var all_nodes = $('[class^="firepad-username-"]');
-        console.log(all_nodes);
+        developers.forEach(function (element) {
+            var rgb = obtainBgColorNoAlpha(element.styleRule.style);
+            element.styleRule.style.backgroundColor = rgb + " 0.3)";
+        }, this)
     }
 });
 ContributionsContext.adapt(editionController, ContributionTrait);
 
+
 var ProductionContext = new Context({ name: 'production' });
 ProductionTrait = Trait({
     defineSpansMode: function () {
-
+        developers.forEach(function (element) {
+            var rgb = obtainBgColorNoAlpha(element.styleRule.style);
+            element.styleRule.style.backgroundColor = rgb + " 0)";
+        }, this)
     }
 });
 ProductionContext.adapt(editionController, ProductionTrait);
@@ -68,3 +74,10 @@ function adaptSpecificContext(developerName, developerData) {
     DevContext.adapt(highlighter, HighlightTrait);
 }
 
+function obtainBgColorNoAlpha(rule) {
+    var indexStartingBgColor = rule.cssText.indexOf("background-color:");
+    var startingsubstrBg = rule.cssText.substring(indexStartingBgColor);
+    var indexInitialBgcolor = startingsubstrBg.indexOf(":");
+    var indexFinalBgColor = startingsubstrBg.lastIndexOf(",");
+    return startingsubstrBg.substring(indexInitialBgcolor + 2, indexFinalBgColor + 1);
+}

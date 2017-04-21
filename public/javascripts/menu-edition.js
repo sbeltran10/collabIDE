@@ -1,6 +1,5 @@
 function updateEditionMode(snapshotEdition) {
     var newMode = snapshotEdition.val();
-    console.log(newMode);
     $("input:radio[name=selected_edition_mode][value =" + newMode + "]").prop('checked', true).change();
 
     if (newMode === 'contribution') {
@@ -18,6 +17,7 @@ function updateEditionMode(snapshotEdition) {
         if (ContributionsContext.activationCount > 0)
             ContributionsContext.deactivate();
     }
+    editionController.defineSpansMode();
 }
 
 function prepareRadio() {
@@ -37,3 +37,4 @@ function prepareRadio() {
 
         });
 }
+
