@@ -19,7 +19,14 @@ function init() {
     //// Create CodeMirror (with lineWrapping on).
     codeMirror = CodeMirror(document.getElementById('firepad'), {
         lineNumbers: true,
-        mode: 'javascript'
+        mode: 'javascript',
+        extraKeys: {
+            "Ctrl-Space": "autocomplete"
+        },
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        gutters: ["CodeMirror-lint-markers"],
+        lint: true
     });
 
     //// Create Firepad.
@@ -28,6 +35,11 @@ function init() {
         userId: loggedUser.username
     });
 
+    CodeMirror.commands.autocomplete = function (cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
+    }
+
+    codeMirror.lint = CodeMirror.lint.javascript;
     // Listeners for new user connected, activated or disconnected
 
     // Set user text highlighthing for new user 
