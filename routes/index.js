@@ -84,11 +84,12 @@ function getProject(res, req, userName, userPassword, projectId) {
     password: userPassword
   }
   db.ref().once('value').then(function (snapshot) {
-    // Project doesnt exists
+    // Project doesn't exists
     if (!snapshot.val()[projectId]) {
       db.ref(projectId).set({
         edition: 'contribution',
-        colorsPool: colorPool
+        colorsPool: colorPool,
+        activeVersion: 'principal'
       }).then(newUserExistingProject(res, req, projectId, loggedUser));
     }
     else {

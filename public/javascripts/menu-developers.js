@@ -19,6 +19,7 @@ function loadDeveloper(developerName, developerData) {
     var nameCol = $('<div class="col-md-12">' + developerName + '</div>');
     nameRow.append(nameCol);
     colNameStatus.append(nameRow);
+    
     var statusRow = $('<div class="row"></div>');
     var textCol = $('<div id="status-text-' + developerName + '" class="col-md-5">' + (developerData.online ? 'Online' : 'Offline') + '</div>');
     var iconCol = $('<div id="status-icon-' + developerName + '" class="col-md-4"><div class="' + (developerData.online ? 'online-icon' : 'offline-icon') + '"></div></div>');

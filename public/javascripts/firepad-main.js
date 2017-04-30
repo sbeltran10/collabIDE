@@ -3,6 +3,8 @@ var styleSheet = document.styleSheets[document.styleSheets.length - 1];
 var rules;
 var firepad;
 var codeMirror;
+var activeFirepadRef;
+var activeVersion;
 
 function init() {
     //// Initialize Firebase.
@@ -14,32 +16,9 @@ function init() {
     firebase.initializeApp(config);
 
     //// Get Firebase Database reference.
-    var firepadRef = getRef();
+    activeFirepadRef = getRef();
 
-    //// Create CodeMirror (with lineWrapping on).
-    codeMirror = CodeMirror(document.getElementById('firepad'), {
-        lineNumbers: true,
-        mode: 'javascript',
-        extraKeys: {
-            "Ctrl-Space": "autocomplete"
-        },
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        gutters: ["CodeMirror-lint-markers"],
-        lint: true
-    });
-
-    //// Create Firepad.
-    firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
-        userColor: loggedUser.color,
-        userId: loggedUser.username
-    });
-
-    CodeMirror.commands.autocomplete = function (cm) {
-        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
-    }
-
-    codeMirror.lint = CodeMirror.lint.javascript;
+    firepadInitialization(activeFirepadRef);
     // Listeners for new user connected, activated or disconnected
 
     // Set user text highlighthing for new user 
@@ -68,20 +47,66 @@ function init() {
         updateEditionMode(snapshotEdition);
     });
 
+    // Listener for different versions
+    var userVersions = firebase.database().ref(proID + "/versions");
+    userVersions.on('child_added', function (snapshotVersion) {
+        if (snapshotVersion.val() !== "principal")
+            loadVersion(snapshotVersion.val().firepadRef);
+    });
+
+    // Listener for version change
+    var actualVersionRef = firebase.database().ref(proID + "/activeVersion");
+    actualVersionRef.on('value', function (snapshot) {
+        console.log(snapshot.val());
+        restoreVersion(snapshot.val());
+    })
+
+
     rules = styleSheet.cssRules || sheet.rules;
 
     //experimental();
     firepad.on('ready', function () {
-        $('#generate-button').removeClass("disabled");
         $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
+        $('#generate-button').removeClass("disabled");
+        $('#new-version-button').click(function (e) { e.preventDefault(); createNewVersion(); return false; });
+        $('#new-version-button').removeClass("disabled");
+
     });
 
 
 }
 
+function firepadInitialization(firepadNewRef) {
+    //// Create CodeMirror (with lineWrapping on).
+    codeMirror = CodeMirror(document.getElementById('firepad'), {
+        lineNumbers: true,
+        mode: 'javascript',
+        extraKeys: {
+            "Ctrl-Space": "autocomplete"
+        },
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        gutters: ["CodeMirror-lint-markers"],
+        lint: true
+    });
+
+    //// Create Firepad.
+    firepad = Firepad.fromCodeMirror(firepadNewRef, codeMirror, {
+        userColor: loggedUser.color,
+        userId: loggedUser.username
+    });
+
+    CodeMirror.commands.autocomplete = function (cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
+    }
+
+    codeMirror.lint = CodeMirror.lint.javascript;
+}
+
 // Helper to get databse reference.
 function getRef() {
     var ref = firebase.database().ref();
+    activeVersion = "principal";
     ref = ref.child(proID);
     return ref;
 }
@@ -125,7 +150,7 @@ function hexToRgb(hex) {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
-        a: 0.2
+        a: 0.3
     } : null;
 }
 

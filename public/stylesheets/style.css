@@ -15,21 +15,21 @@ body {
 
 #firepad {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   bottom: 0;
   height: auto;
-  width: 80%;
+  width: 75%;
   padding: 1em 1em;
   border: 0.2em solid rgba(192,192,192,0.6);
 }
 
 #menu-container {
   position: absolute;
-  right: 0; 
+  left: 0; 
   top: 0; 
   height: auto;
-  width: 20%;
+  width: 25%;
   padding: 0 1em 0 1em;
   border: 0.2em solid rgba(192,192,192,0.6);
 }
@@ -99,11 +99,11 @@ input[type="checkbox"]{
 
 .generation-button{
   margin: 0.5em 0; 
-  width:90%
+  width:80%
 }
 
 .generation-file-name{
-  width:90%
+  width:80%
 }
 
 div.input{
@@ -116,4 +116,27 @@ div.actions{
 
 a.powered-by-firepad {
   display: none;
+}
+
+.new-version-option{
+  margin: 0.5em;
+}
+
+.new-version-button{
+  margin: 0.5em 0; 
+  width:80%
+}
+
+.version-name{
+  width:80%
+}
+
+.menu-version-item{
+  padding: 0.4em 0;
+  border-bottom: 0.2em solid rgba(192,192,192,0.6);
+}
+
+.restore-button, .update-button{
+  margin: 0.5em;
+  width: 90%
 }

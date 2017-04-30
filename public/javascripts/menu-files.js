@@ -1,6 +1,5 @@
 // Creates a download of the code currently showing in the editor
 function download() {
-    console.log("what");
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(getCurrentCode()));
     var fileName = $("#generated-file-name").val();
@@ -35,7 +34,6 @@ function getCurrentCode() {
         }
         code += "\n";
     }
-    console.log(code);
     return code;
 }
 

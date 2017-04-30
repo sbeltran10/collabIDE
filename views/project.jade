@@ -22,13 +22,23 @@ block content
       .col-md-12
         .menu-heading Developers
         #developers-list
+    #menu-versions.row
+      .col-md-12
+        .menu-heading Product versions
+        #version-existing
+        #version-options
+          .row.new-version-option
+            input#new-version-name.version-name(type="text", name="versionname" placeholder="Version name")
+          .row.new-version-option
+            a#new-version-button.btn.btn-primary.disabled.new-version-button(name="filebutton") Create new version
     #menu-file.row
       .col-md-12
-        .menu-heading File generation
+        .menu-heading File export
         #generation-options
-        .row.generation-item
-          input#generated-file-name.generation-file-name(type="text", name="filename" placeholder="File name")
-        .row.generation-item
-          a#generate-button.btn.btn-primary.disabled.generation-button(name="filebutton") Generate File
+          .row.generation-item
+            input#generated-file-name.generation-file-name(type="text", name="filename" placeholder="File name")
+          .row.generation-item
+            a#generate-button.btn.btn-primary.disabled.generation-button(name="filebutton") Download File
+    
         
 
