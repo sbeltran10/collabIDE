@@ -53,7 +53,6 @@ function loadVersion(versionLabel) {
     $('#version-existing').append(newItem);
     $('#restore-version-' + versionLabel).click(function (e) { e.preventDefault(); changeVersion(versionLabel); return false; });
     $('#update-version-' + versionLabel).click(function (e) { e.preventDefault(); updateVersion(versionLabel); return false; });
-
 }
 
 function changeVersion(versionName) {
@@ -68,19 +67,30 @@ function restoreVersion(versionName) {
         activeFirepadRef = ref.child(proID + "-" + versionName);
         activeVersion = versionName;
         firepadInitialization(activeFirepadRef);
+        $('#restore-version-' + versionLabel).click(function (e) { e.preventDefault(); changeVersion(versionLabel); return false; });
     }
     else {
         activeFirepadRef = ref.child(proID);
         activeVersion = versionName;
         firepadInitialization(activeFirepadRef);
+        $('#restore-version-principal').click(function (e) { e.preventDefault(); changePrincipalVersion(); return false; });
     }
-    $('#restore-version-' + versionLabel).click(function (e) { e.preventDefault(); changeVersion(versionLabel); return false; });
 }
-
-
 
 function updateVersion(versionName) {
     activeFirepadRef.once('value').then(function (snapshot) {
         firebase.database().ref(proID + "-" + versionName).update(snapshot.val());
+    });
+}
+
+function changePrincipalVersion() {
+    firebase.database().ref(proID).update({ "activeVersion": "principal" });
+}
+
+function updatePrincipalVersion() {
+    activeFirepadRef.once('value').then(function (snapshot) {
+        var updateData = {};
+        updateData.history = snapshot.val().history;
+        firebase.database().ref(proID).update(snapshot.val());
     });
 }

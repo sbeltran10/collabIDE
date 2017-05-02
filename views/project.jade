@@ -26,6 +26,12 @@ block content
       .col-md-12
         .menu-heading Product versions
         #version-existing
+          .row.menu-version-item
+            .col-md-12 Principal
+            .col-md-6
+              a#restore-version-principal.btn.btn-primary.restore-button(name="restorebutton") Switch to this version
+            .col-md-6
+              a#update-version-principal.btn.btn-primary.update-button(name="updatebutton") Update version
         #version-options
           .row.new-version-option
             input#new-version-name.version-name(type="text", name="versionname" placeholder="Version name")
