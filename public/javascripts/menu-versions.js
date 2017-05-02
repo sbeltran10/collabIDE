@@ -13,7 +13,7 @@ function createNewVersion() {
                     });
                 }
                 else {
-                    firebase.database().ref(proID+"-"+activeVersion).once('value').then(function (snapshot) {
+                    firebase.database().ref(proID + "-" + activeVersion).once('value').then(function (snapshot) {
                         firebase.database().ref(proID + "-" + versionName).set(snapshot.val());
                     });
                 }
@@ -74,6 +74,7 @@ function restoreVersion(versionName) {
         activeVersion = versionName;
         firepadInitialization(activeFirepadRef);
     }
+    $('#restore-version-' + versionLabel).click(function (e) { e.preventDefault(); changeVersion(versionLabel); return false; });
 }
 
 
