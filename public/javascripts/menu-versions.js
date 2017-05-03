@@ -36,7 +36,7 @@ function loadVersion(versionLabel) {
 
     var newItem = $('<div class="row menu-version-item"></div>');
 
-    var colVersionLabel = $('<div class="col-md-12">' + versionLabel + '</div>');
+    var colVersionLabel = $('<div id="txt-version-'+versionLabel+'" class="col-md-12">' + versionLabel + '</div>');
 
     var colRestore = $('<div class="col-md-6"></div>');
     var butRestore = $('<a id="restore-version-' + versionLabel + '" class="btn btn-primary restore-button" name="restorebutton">Switch to this version</a>');
@@ -63,18 +63,24 @@ function restoreVersion(versionName) {
     var firepadNode = document.getElementById('firepad');
     firepadNode.removeChild(firepadNode.firstChild);
     var ref = firebase.database().ref();
+
+    $('#restore-version-' + activeVersion).removeClass("disabled");
+    $('#update-version-' + activeVersion).removeClass("disabled");
+    $('#txt-version-' + activeVersion).html(activeVersion);
+
     if (versionName !== "principal") {
         activeFirepadRef = ref.child(proID + "-" + versionName);
         activeVersion = versionName;
         firepadInitialization(activeFirepadRef);
-        $('#restore-version-' + versionLabel).click(function (e) { e.preventDefault(); changeVersion(versionLabel); return false; });
     }
     else {
         activeFirepadRef = ref.child(proID);
         activeVersion = versionName;
         firepadInitialization(activeFirepadRef);
-        $('#restore-version-principal').click(function (e) { e.preventDefault(); changePrincipalVersion(); return false; });
     }
+    $('#restore-version-'+activeVersion).addClass("disabled");
+    $('#update-version-' + activeVersion).addClass("disabled");
+    $('#txt-version-' + activeVersion).html(activeVersion + " - ACTIVE");
 }
 
 function updateVersion(versionName) {

@@ -64,13 +64,18 @@ function init() {
 
     rules = styleSheet.cssRules || sheet.rules;
 
+    //Hide the edition menu for now
+    $('#menu-edition').hide();
+
     //experimental();
     firepad.on('ready', function () {
         $('#generate-button').click(function (e) { e.preventDefault(); download(); return false; });
         $('#generate-button').removeClass("disabled");
         $('#new-version-button').click(function (e) { e.preventDefault(); createNewVersion(); return false; });
         $('#new-version-button').removeClass("disabled");
-
+        $('#restore-version-principal').click(function (e) { e.preventDefault(); changePrincipalVersion(); return false; });
+        $('#update-version-principal').click(function (e) { e.preventDefault(); updatePrincipalVersion(); return false; });
+        $('#project-title').html('Welcome to the project ' + proID);
     });
 
 
@@ -81,13 +86,8 @@ function firepadInitialization(firepadNewRef) {
     codeMirror = CodeMirror(document.getElementById('firepad'), {
         lineNumbers: true,
         mode: 'javascript',
-        extraKeys: {
-            "Ctrl-Space": "autocomplete"
-        },
         matchBrackets: true,
         autoCloseBrackets: true,
-        gutters: ["CodeMirror-lint-markers"],
-        lint: true
     });
 
     //// Create Firepad.
@@ -96,11 +96,7 @@ function firepadInitialization(firepadNewRef) {
         userId: loggedUser.username
     });
 
-    CodeMirror.commands.autocomplete = function (cm) {
-        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
-    }
 
-    codeMirror.lint = CodeMirror.lint.javascript;
 }
 
 // Helper to get databse reference.
@@ -150,7 +146,7 @@ function hexToRgb(hex) {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
-        a: 0.3
+        a: 0.25
     } : null;
 }
 

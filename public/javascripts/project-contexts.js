@@ -31,7 +31,7 @@ ContributionTrait = Trait({
     defineSpansMode: function () {
         developers.forEach(function (element) {
             var rgb = obtainBgColorNoAlpha(element.styleRule.style);
-            element.styleRule.style.backgroundColor = rgb + " 0.3)";
+            element.styleRule.style.backgroundColor = rgb + " 0.25)";
         }, this)
     }
 });

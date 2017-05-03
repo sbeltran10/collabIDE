@@ -25,14 +25,13 @@ var randCol = function getRandomColor() {
 
 // Pool of colors
 var colorPool = {
-  green: '#2BCE48',
-  blue: '#0075DC',
-  mallow: '#C20088',
-  orpiment: '#FFA405',
-  turquoise: '#00998F',
-  yellow: '#FFFF00',
-  caramel: '#993F00',
-  lime: '#9DCC00'
+  red: '#FF0A05',
+  green: '#98FF03',
+  orange: '#FF7502',
+  aquamar: '#03FF9E',
+  yellow: '#FFD116',
+  blue: '#0295FF',
+  violet: '#B504FF'
 };
 
 // Pick a random color from the remaining colors in the pool
