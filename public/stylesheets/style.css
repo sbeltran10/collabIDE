@@ -150,3 +150,7 @@ a.powered-by-firepad {
 .btn{
   font-weight: bold !important;
 }
+
+.CodeMirror-matchingbracket{
+  color: #A8A8A8 !important;
+}
