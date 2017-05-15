@@ -51,7 +51,7 @@ function init() {
     var userVersions = firebase.database().ref(proID + "/versions");
     userVersions.on('child_added', function (snapshotVersion) {
         if (snapshotVersion.val() !== "principal")
-            loadVersion(snapshotVersion.val().firepadRef);
+            loadVersion(snapshotVersion.val());
     });
 
     // Listener for version change
