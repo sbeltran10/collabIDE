@@ -145,3 +145,5 @@ function getDateFromTimestamp(stamp) {
     var formattedTime = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getUTCFullYear() + ' at ' + hours + ':' + minutes.substr(-2);
     return formattedTime;
 }
+
+function balbabla
